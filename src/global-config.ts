@@ -34,7 +34,9 @@ export const POSTGRES_DB = checkEnvironmentFor('POSTGRES_DB');
 export const KAFKA_BROKERS = checkEnvironmentFor('KAFKA_BROKERS').split(';');
 export const KAFKA_GROUPID = checkEnvironmentFor('KAFKA_GROUPID');
 export const PORT = Number(checkEnvironmentFor('PORT'));
+export const JWT_ACCESS_SECRET = checkEnvironmentFor('JWT_ACCESS_SECRET');
+export const JWT_REFRESH_SECRET = checkEnvironmentFor('JWT_REFRESH_SECRET');
 export const LOG_LEVEL = process.env.LOG_LEVEL
   ? process.env.LOG_LEVEL
   : 'default';
-export const RECORDS_ON_REQUEST = 501;
+export const MESSAGES_ON_REQUEST = 50;

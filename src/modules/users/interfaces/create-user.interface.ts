@@ -1,4 +1,4 @@
-export default class LoginUserDTO {
+export interface ICreateUser {
   login: string;
   password: string;
 }

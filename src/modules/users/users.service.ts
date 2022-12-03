@@ -1,7 +1,12 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import CreateUserDto from './dto/user-create.dto';
+import errmessages from '../../utils/errmessages';
+import { ICreateUser } from './interfaces/create-user.interface';
 import User from './users.entity';
 
 @Injectable()
@@ -10,7 +15,7 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: ICreateUser): Promise<User> {
     const user = this.userRepository.create(createUserDto);
     try {
       await this.userRepository.save(user);
@@ -18,7 +23,10 @@ export class UsersService {
       if (
         e.message.startsWith('duplicate key value violates unique constraint')
       ) {
-        throw new HttpException('Login already exists', 409);
+        throw new HttpException(
+          errmessages.USER_ALREADY_EXISTS,
+          HttpStatus.CONFLICT,
+        );
       }
     }
     return user;

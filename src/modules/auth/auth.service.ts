@@ -1,27 +1,22 @@
-import {
-  HttpException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
-import CreateUserDto from '../users/dto/user-create.dto';
-import User from '../users/users.entity';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/modules/users/users.service';
 //import * as bcrypt from 'bcrypt';
 import LoginUserDto from './dto/login-user.dto';
 import errmessages from '../../utils/errmessages';
 import * as jwt from 'jsonwebtoken';
+import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from '../../global-config';
+import { ISignInResponse } from './interfaces/signin-response.interface';
+import SignUpUserDTO from './dto/user-create.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private userService: UsersService) {}
 
-  async sigunp(createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.createUser(createUserDto);
+  async sigunp(signUpUserDTO: SignUpUserDTO): Promise<void> {
+    await this.userService.createUser(signUpUserDTO);
   }
 
-  async login(
-    loginUserDto: LoginUserDto,
-  ): Promise<{ accessToken: string; refreshToken: string }> {
+  async login(loginUserDto: LoginUserDto): Promise<ISignInResponse> {
     const result = await this.userService.findByLogin(loginUserDto.login);
 
     if (!result) {
@@ -32,15 +27,9 @@ export class AuthService {
       throw new UnauthorizedException(errmessages.ERROR_LOGIN);
     }
 
-    console.log(result);
-    if (!result.is_active) {
-      //TODO: generate activate token, set it to cache
-      throw new HttpException('User is not activated', 403);
-    }
-
     return {
-      accessToken: jwt.sign(result.id, 'secret'),
-      refreshToken: jwt.sign(result.id, 'secret'),
+      accessToken: jwt.sign(result.id, JWT_ACCESS_SECRET),
+      refreshToken: jwt.sign(result.id, JWT_REFRESH_SECRET),
     };
   }
 }

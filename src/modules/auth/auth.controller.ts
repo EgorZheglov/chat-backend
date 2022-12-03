@@ -1,7 +1,9 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import CreateUserDto from 'src/modules/users/dto/user-create.dto';
+import SignUpUserDTO from 'src/modules/auth/dto/user-create.dto';
+import messages from '../../utils/messages';
 import { AuthService } from './auth.service';
 import LoginUserDto from './dto/login-user.dto';
+import { ISignInResponse } from './interfaces/signin-response.interface';
 
 @Controller()
 export class AuthController {
@@ -9,16 +11,18 @@ export class AuthController {
 
   @Post('signup')
   @HttpCode(201)
-  async signupUser(@Body() createUserDto: CreateUserDto) {
-    const result = await this.authService.sigunp(createUserDto);
+  async signupUser(@Body() signUpUserDTO: SignUpUserDTO): Promise<string> {
+    await this.authService.sigunp(signUpUserDTO);
 
-    return result;
+    return messages.USER_CREATED;
   }
 
   @Post('signin')
-  async loginUser(@Body() loginUserDto: LoginUserDto) {
+  async loginUser(
+    @Body() loginUserDto: LoginUserDto,
+  ): Promise<ISignInResponse> {
     const result = await this.authService.login(loginUserDto);
 
-    return { ...result, resultCode: 1 };
+    return result;
   }
 }

@@ -18,8 +18,9 @@ export default class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Column('boolean', { default: false })
-  is_active: boolean;
+  // @Column('boolean', { default: false })
+  // is_active: boolean;
+  
   // @BeforeInsert()
   // async hashPassword(): Promise<void> {
   //   this.password = await bcrypt.hash(this.password, 10);

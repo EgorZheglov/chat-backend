@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import errmessages from '../../utils/errmessages';
 import { ICreateUser } from './interfaces/create-user.interface';
-import User from './users.entity';
+import User from '../../database/entities/users.entity';
 
 @Injectable()
 export class UsersService {
@@ -15,8 +15,8 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  async createUser(createUserDto: ICreateUser): Promise<User> {
-    const user = this.userRepository.create(createUserDto);
+  async createUser(payload: ICreateUser): Promise<void> {
+    const user = this.userRepository.create(payload);
     try {
       await this.userRepository.save(user);
     } catch (e) {
@@ -29,7 +29,7 @@ export class UsersService {
         );
       }
     }
-    return user;
+    return;
   }
 
   async findByLogin(login: string): Promise<User> {

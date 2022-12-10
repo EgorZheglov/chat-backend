@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './modules/users/users.module';
+import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
-import ormConfig from './utils/orm-config';
+import { MessageModule } from './modules/message/message.module';
+import ormConfig from '../src/database/orm-config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(ormConfig), UsersModule, AuthModule],
+  imports: [TypeOrmModule.forRoot(ormConfig), UserModule, AuthModule, MessageModule],
 })
-export class AppModule {}
+export class AppModule { }

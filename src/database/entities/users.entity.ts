@@ -3,7 +3,6 @@ import {
   BaseEntity,
   Column,
   PrimaryGeneratedColumn,
-  BeforeInsert,
 } from 'typeorm';
 //import * as bcrypt from 'bcrypt';
 

@@ -40,3 +40,4 @@ export const LOG_LEVEL = process.env.LOG_LEVEL
   ? process.env.LOG_LEVEL
   : 'default';
 export const MESSAGES_ON_REQUEST = 50;
+export const USERS_TAKE_LIMIT = 20;

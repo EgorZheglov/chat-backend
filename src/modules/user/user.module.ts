@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import User from '../../database/entities/users.entity';
-import { UserService } from './users.service';
-import { UserController } from './users.controller';
+import { UserService } from './user.service';
+import { UserController } from './user.controller';
 
 @Module({
   providers: [UserService],

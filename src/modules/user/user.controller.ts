@@ -2,7 +2,7 @@ import { Controller, Get, HttpCode, HttpException, HttpStatus, Query } from '@ne
 import User from 'src/database/entities/users.entity';
 import { INTERNAL_SERVER_ERROR } from 'src/utils/errmessages';
 import { GetUsersDTO } from './dto/get-users-dto';
-import { UserService } from './users.service';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {

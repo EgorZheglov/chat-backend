@@ -4,13 +4,14 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import errmessages from '../../utils/errmessages';
 import { ICreateUser } from './interfaces/create-user.interface';
 import User from '../../database/entities/users.entity';
+import { USERS_TAKE_LIMIT } from 'src/global-config';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
@@ -32,9 +33,21 @@ export class UsersService {
     return;
   }
 
-  async findByLogin(login: string): Promise<User> {
-    const [user] = await this.userRepository.find({ where: { login } });
+  async findByUsername(username: string): Promise<User> {
+    const [user] = await this.userRepository.find({ where: { username } });
 
     return user;
+  }
+
+  async find(username: string): Promise<User[]> {
+    const users = await this.userRepository.find({ 
+      select: {
+        username: true
+      },
+      where: { username: Like(username) }, 
+      take: USERS_TAKE_LIMIT 
+    });
+
+    return users;
   }
 }

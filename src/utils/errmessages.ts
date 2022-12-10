@@ -16,4 +16,5 @@ export default {
   ERROR_SIGNUP: 'Something went wrong during signup',
   ERROR_LOGOUT: 'Something went wrong during logout',
   USER_ALREADY_EXISTS: 'User with same login already exists',
+  INTERNAL_SERVER_ERROR: 'Internal server error',
 };

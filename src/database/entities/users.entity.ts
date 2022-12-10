@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
   BeforeInsert,
 } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+//import * as bcrypt from 'bcrypt';
 
 @Entity('user')
 export default class User extends BaseEntity {
@@ -13,7 +13,7 @@ export default class User extends BaseEntity {
   id: string;
 
   @Column({ unique: true })
-  login: string;
+  username: string;
 
   @Column()
   password: string;

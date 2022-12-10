@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from 'src/modules/users/users.service';
+import { UserService } from 'src/modules/users/users.service';
 //import * as bcrypt from 'bcrypt';
 import LoginUserDto from './dto/login-user.dto';
 import errmessages from '../../utils/errmessages';
@@ -10,14 +10,14 @@ import SignUpUserDTO from './dto/user-create.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UserService) {}
 
   async sigunp(signUpUserDTO: SignUpUserDTO): Promise<void> {
     await this.userService.createUser(signUpUserDTO);
   }
 
   async login(loginUserDto: LoginUserDto): Promise<ISignInResponse> {
-    const result = await this.userService.findByLogin(loginUserDto.login);
+    const result = await this.userService.findByUsername(loginUserDto.username);
 
     if (!result) {
       throw new UnauthorizedException(errmessages.ERROR_LOGIN);

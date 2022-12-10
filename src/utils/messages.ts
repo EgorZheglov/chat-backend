@@ -1,3 +1,1 @@
-export default {
-    USER_CREATED: 'User successfully created',
-  };
+export const USER_CREATED = 'User successfully created';

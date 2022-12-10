@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import errmessages from '../../utils/errmessages';
+import { USER_ALREADY_EXISTS } from '../../utils/errmessages';
 import { ICreateUser } from './interfaces/create-user.interface';
 import User from '../../database/entities/users.entity';
 import { USERS_TAKE_LIMIT } from 'src/global-config';
@@ -14,7 +14,7 @@ import { USERS_TAKE_LIMIT } from 'src/global-config';
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async createUser(payload: ICreateUser): Promise<void> {
     const user = this.userRepository.create(payload);
@@ -25,7 +25,7 @@ export class UserService {
         e.message.startsWith('duplicate key value violates unique constraint')
       ) {
         throw new HttpException(
-          errmessages.USER_ALREADY_EXISTS,
+          USER_ALREADY_EXISTS,
           HttpStatus.CONFLICT,
         );
       }
@@ -40,12 +40,12 @@ export class UserService {
   }
 
   async find(username: string): Promise<User[]> {
-    const users = await this.userRepository.find({ 
+    const users = await this.userRepository.find({
       select: {
         username: true
       },
-      where: { username: Like(username) }, 
-      take: USERS_TAKE_LIMIT 
+      where: { username: Like(username) },
+      take: USERS_TAKE_LIMIT
     });
 
     return users;

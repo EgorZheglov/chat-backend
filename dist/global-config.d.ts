@@ -1,0 +1,13 @@
+export declare const POSTGRES_PORT: number;
+export declare const POSTGRES_USER: string;
+export declare const POSTGRES_HOST: string;
+export declare const POSTGRES_PASSWORD: string;
+export declare const POSTGRES_DB: string;
+export declare const PORT: number;
+export declare const JWT_ACCESS_SECRET: string;
+export declare const JWT_REFRESH_SECRET: string;
+export declare const ACCESS_TOKEN_EXPIRES: string;
+export declare const REFRESH_TOKEN_EXPIRES: string;
+export declare const LOG_LEVEL: string;
+export declare const MESSAGES_ON_REQUEST = 50;
+export declare const USERS_TAKE_LIMIT = 20;

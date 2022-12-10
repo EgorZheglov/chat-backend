@@ -7,6 +7,7 @@ import {
   POSTGRES_PORT,
   POSTGRES_USER,
 } from '../global-config';
+import Message from './entities/messages.entity';
 
 const ormConfig: ConnectionOptions = {
   type: 'postgres',
@@ -17,7 +18,7 @@ const ormConfig: ConnectionOptions = {
   database: POSTGRES_DB,
   logging: true,
   synchronize: true,
-  entities: [User],
+  entities: [User, Message],
   //migrations: ['../db/migrations/*.ts'],
   //logger: 'simple-console',
 };

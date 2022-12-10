@@ -10,7 +10,7 @@ import SignUpUserDTO from './dto/user-create.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   async sigunp(signUpUserDTO: SignUpUserDTO): Promise<void> {
     await this.userService.createUser(signUpUserDTO);
@@ -28,8 +28,14 @@ export class AuthService {
     }
 
     return {
-      accessToken: jwt.sign(result.id, JWT_ACCESS_SECRET),
-      refreshToken: jwt.sign(result.id, JWT_REFRESH_SECRET),
+      accessToken: jwt.sign(
+        { id: result.id, username: result.username },
+        JWT_ACCESS_SECRET,
+      ),
+      refreshToken: jwt.sign(
+        { id: result.id, password: result.password },
+        JWT_REFRESH_SECRET,
+      ),
     };
   }
 }

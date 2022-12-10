@@ -4,7 +4,9 @@ import Message from 'src/database/entities/messages.entity';
 import User from 'src/database/entities/users.entity';
 import { MESSAGES_ON_REQUEST } from 'src/global-config';
 import { Repository } from 'typeorm';
+import { CreateMessageDTO } from './dto/create-message.dto';
 import { GetMessagesDTO } from './dto/get-messages-dto';
+import { IMessage } from './interfaces/message.interface';
 
 @Injectable()
 export class MessageService {
@@ -14,8 +16,8 @@ export class MessageService {
   ) {}
 
   //getting messages of selected chat in time interval
-  async getMessages(getMessagesDTO: GetMessagesDTO) {
-    const result = this.messageRepo
+  async getMessages(getMessagesDTO: GetMessagesDTO): Promise<IMessage[]> {
+    const result: IMessage[] = await this.messageRepo
       .createQueryBuilder()
       .select(
         `
@@ -43,5 +45,17 @@ export class MessageService {
       .execute();
 
     return result;
+  }
+
+  async createMessage(createMessageDTO: CreateMessageDTO): Promise<void> {
+    const messageEntity = this.messageRepo.create({
+      consumer_id: createMessageDTO.consumerId,
+      data: createMessageDTO.data,
+      timestamp: Date.now(),
+      producer_id: createMessageDTO.producerId,
+    });
+    await this.messageRepo.save(messageEntity);
+    //TODO: use webSocket connection
+    return;
   }
 }

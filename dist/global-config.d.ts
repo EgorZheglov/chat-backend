@@ -9,5 +9,6 @@ export declare const JWT_REFRESH_SECRET: string;
 export declare const ACCESS_TOKEN_EXPIRES: string;
 export declare const REFRESH_TOKEN_EXPIRES: string;
 export declare const LOG_LEVEL: string;
-export declare const MESSAGES_ON_REQUEST = 50;
+export declare const MESSAGES_ON_REQUEST = 20;
 export declare const USERS_TAKE_LIMIT = 20;
+export declare const SALT_OR_ROUNDS = 10;

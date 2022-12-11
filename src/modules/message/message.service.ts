@@ -16,13 +16,16 @@ export class MessageService {
   ) {}
 
   //getting messages of selected chat in time interval
-  async getMessages(getMessagesDTO: GetMessagesDTO): Promise<IMessage[]> {
+  async getMessages(
+    getMessagesDTO: GetMessagesDTO,
+    userId: string,
+  ): Promise<IMessage[]> {
     const result: IMessage[] = await this.messageRepo
       .createQueryBuilder()
       .select(
         `
-        consumer.name as "consumerName",
-        producer.name as "producerName",
+        consumer.username as "consumerName",
+        producer.username as "producerName",
         data,
         timestamp
         `,
@@ -30,15 +33,14 @@ export class MessageService {
       .leftJoin(User, 'consumer', 'consumer.id = consumer_id')
       .leftJoin(User, 'producer', 'producer.id = producer_id')
       .where(`consumer_id = :userId OR producer_id = :userId`, {
-        userId: getMessagesDTO.userId,
+        userId,
       })
       .andWhere(
-        `consumer.id = :interlocutor OR producer.id = :interlocutorId`,
-        { interlocutor: getMessagesDTO.interlocutorId },
+        `consumer.id = :interlocutorId OR producer.id = :interlocutorId`,
+        { interlocutorId: getMessagesDTO.interlocutorId },
       )
-      .andWhere(`timestamp >= :dateFrom AND timestamp <= :dateTo`, {
+      .andWhere(`timestamp <= :dateFrom`, {
         dateFrom: getMessagesDTO.dateFrom,
-        dateTo: getMessagesDTO.dateTo,
       })
       .orderBy({ timestamp: 'DESC' })
       .limit(MESSAGES_ON_REQUEST)
@@ -47,12 +49,15 @@ export class MessageService {
     return result;
   }
 
-  async createMessage(createMessageDTO: CreateMessageDTO): Promise<void> {
+  async createMessage(
+    createMessageDTO: CreateMessageDTO,
+    userId: string,
+  ): Promise<void> {
     const messageEntity = this.messageRepo.create({
       consumer_id: createMessageDTO.consumerId,
       data: createMessageDTO.data,
       timestamp: Date.now(),
-      producer_id: createMessageDTO.producerId,
+      producer_id: userId,
     });
     await this.messageRepo.save(messageEntity);
     //TODO: use WebSocket connection

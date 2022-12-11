@@ -13,6 +13,8 @@ const user_module_1 = require("./modules/user/user.module");
 const auth_module_1 = require("./modules/auth/auth.module");
 const message_module_1 = require("./modules/message/message.module");
 const orm_config_1 = require("./database/orm-config");
+const core_1 = require("@nestjs/core");
+const auth_guard_1 = require("./guards/auth-guard");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -22,6 +24,12 @@ AppModule = __decorate([
             user_module_1.UserModule,
             auth_module_1.AuthModule,
             message_module_1.MessageModule,
+        ],
+        providers: [
+            {
+                provide: core_1.APP_GUARD,
+                useClass: auth_guard_1.default,
+            },
         ],
     })
 ], AppModule);

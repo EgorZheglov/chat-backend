@@ -10,7 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const bcrypt = require("bcrypt");
+const global_config_1 = require("../../global-config");
 let User = class User extends typeorm_1.BaseEntity {
+    async hashPassword() {
+        this.password = await bcrypt.hash(this.password, global_config_1.SALT_OR_ROUNDS);
+    }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -24,6 +29,12 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], User.prototype, "hashPassword", null);
 User = __decorate([
     (0, typeorm_1.Entity)('users')
 ], User);

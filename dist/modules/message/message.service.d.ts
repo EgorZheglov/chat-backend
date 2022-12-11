@@ -6,6 +6,6 @@ import { IMessage } from './interfaces/message.interface';
 export declare class MessageService {
     private readonly messageRepo;
     constructor(messageRepo: Repository<Message>);
-    getMessages(getMessagesDTO: GetMessagesDTO): Promise<IMessage[]>;
-    createMessage(createMessageDTO: CreateMessageDTO): Promise<void>;
+    getMessages(getMessagesDTO: GetMessagesDTO, userId: string): Promise<IMessage[]>;
+    createMessage(createMessageDTO: CreateMessageDTO, userId: string): Promise<void>;
 }

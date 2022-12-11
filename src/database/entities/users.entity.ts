@@ -3,9 +3,10 @@ import {
   BaseEntity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
+  BeforeInsert,
 } from 'typeorm';
-//import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
+import { SALT_OR_ROUNDS } from 'src/global-config';
 
 @Entity('users')
 export default class User extends BaseEntity {
@@ -18,11 +19,8 @@ export default class User extends BaseEntity {
   @Column()
   password: string;
 
-  // @Column('boolean', { default: false })
-  // is_active: boolean;
-
-  // @BeforeInsert()
-  // async hashPassword(): Promise<void> {
-  //   this.password = await bcrypt.hash(this.password, 10);
-  // }
+  @BeforeInsert()
+  async hashPassword(): Promise<void> {
+    this.password = await bcrypt.hash(this.password, SALT_OR_ROUNDS);
+  }
 }

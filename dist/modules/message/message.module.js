@@ -12,13 +12,14 @@ const message_service_1 = require("./message.service");
 const message_controller_1 = require("./message.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const messages_entity_1 = require("../../database/entities/messages.entity");
+const auth_module_1 = require("../auth/auth.module");
 let MessageModule = class MessageModule {
 };
 MessageModule = __decorate([
     (0, common_1.Module)({
         providers: [message_service_1.MessageService],
         controllers: [message_controller_1.MessageController],
-        imports: [typeorm_1.TypeOrmModule.forFeature([messages_entity_1.default])]
+        imports: [typeorm_1.TypeOrmModule.forFeature([messages_entity_1.default]), auth_module_1.AuthModule],
     })
 ], MessageModule);
 exports.MessageModule = MessageModule;

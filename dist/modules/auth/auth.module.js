@@ -18,6 +18,7 @@ AuthModule = __decorate([
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
         imports: [user_module_1.UserModule],
+        exports: [auth_service_1.AuthService],
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;

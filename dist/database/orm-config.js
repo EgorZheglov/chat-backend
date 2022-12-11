@@ -11,7 +11,7 @@ const ormConfig = {
     password: global_config_1.POSTGRES_PASSWORD,
     database: global_config_1.POSTGRES_DB,
     logging: true,
-    synchronize: true,
+    synchronize: false,
     entities: [users_entity_1.default, messages_entity_1.default],
 };
 exports.default = ormConfig;

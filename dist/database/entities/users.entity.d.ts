@@ -3,4 +3,5 @@ export default class User extends BaseEntity {
     id: string;
     username: string;
     password: string;
+    hashPassword(): Promise<void>;
 }

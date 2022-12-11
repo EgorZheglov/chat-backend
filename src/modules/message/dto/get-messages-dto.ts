@@ -1,19 +1,16 @@
-import { IsDateString, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class GetMessagesDTO {
-  @IsUUID()
-  @IsNotEmpty()
-  readonly userId: string;
-
   @IsString()
   @IsNotEmpty()
   readonly interlocutorId: string;
 
   @IsDateString()
-  @IsNotEmpty()
+  @IsOptional()
   readonly dateFrom?: Date;
-
-  @IsDateString()
-  @IsNotEmpty()
-  readonly dateTo?: Date;
 }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.USERS_TAKE_LIMIT = exports.MESSAGES_ON_REQUEST = exports.LOG_LEVEL = exports.REFRESH_TOKEN_EXPIRES = exports.ACCESS_TOKEN_EXPIRES = exports.JWT_REFRESH_SECRET = exports.JWT_ACCESS_SECRET = exports.PORT = exports.POSTGRES_DB = exports.POSTGRES_PASSWORD = exports.POSTGRES_HOST = exports.POSTGRES_USER = exports.POSTGRES_PORT = void 0;
+exports.SALT_OR_ROUNDS = exports.USERS_TAKE_LIMIT = exports.MESSAGES_ON_REQUEST = exports.LOG_LEVEL = exports.REFRESH_TOKEN_EXPIRES = exports.ACCESS_TOKEN_EXPIRES = exports.JWT_REFRESH_SECRET = exports.JWT_ACCESS_SECRET = exports.PORT = exports.POSTGRES_DB = exports.POSTGRES_PASSWORD = exports.POSTGRES_HOST = exports.POSTGRES_USER = exports.POSTGRES_PORT = void 0;
 const config_1 = require("@nestjs/config");
 let configPath;
 switch (process.env.NODE_ENV) {
@@ -35,6 +35,7 @@ exports.REFRESH_TOKEN_EXPIRES = checkEnvironmentFor('REFRESH_TOKEN_EXPIRES');
 exports.LOG_LEVEL = process.env.LOG_LEVEL
     ? process.env.LOG_LEVEL
     : 'default';
-exports.MESSAGES_ON_REQUEST = 50;
+exports.MESSAGES_ON_REQUEST = 20;
 exports.USERS_TAKE_LIMIT = 20;
+exports.SALT_OR_ROUNDS = 10;
 //# sourceMappingURL=global-config.js.map

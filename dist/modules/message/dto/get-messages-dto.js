@@ -14,24 +14,14 @@ const class_validator_1 = require("class-validator");
 class GetMessagesDTO {
 }
 __decorate([
-    (0, class_validator_1.IsUUID)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], GetMessagesDTO.prototype, "userId", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], GetMessagesDTO.prototype, "interlocutorId", void 0);
 __decorate([
     (0, class_validator_1.IsDateString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Date)
 ], GetMessagesDTO.prototype, "dateFrom", void 0);
-__decorate([
-    (0, class_validator_1.IsDateString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Date)
-], GetMessagesDTO.prototype, "dateTo", void 0);
 exports.GetMessagesDTO = GetMessagesDTO;
 //# sourceMappingURL=get-messages-dto.js.map

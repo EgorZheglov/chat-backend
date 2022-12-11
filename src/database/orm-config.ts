@@ -17,9 +17,8 @@ const ormConfig: DataSourceOptions = {
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
   logging: true,
-  synchronize: true,
+  synchronize: false,
   entities: [User, Message],
-
   //migrations: ['../db/migrations/*.ts'],
   //logger: 'simple-console',
 };

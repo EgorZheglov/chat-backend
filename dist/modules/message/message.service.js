@@ -23,36 +23,35 @@ let MessageService = class MessageService {
     constructor(messageRepo) {
         this.messageRepo = messageRepo;
     }
-    async getMessages(getMessagesDTO) {
+    async getMessages(getMessagesDTO, userId) {
         const result = await this.messageRepo
             .createQueryBuilder()
             .select(`
-        consumer.name as "consumerName",
-        producer.name as "producerName",
+        consumer.username as "consumerName",
+        producer.username as "producerName",
         data,
         timestamp
         `)
             .leftJoin(users_entity_1.default, 'consumer', 'consumer.id = consumer_id')
             .leftJoin(users_entity_1.default, 'producer', 'producer.id = producer_id')
             .where(`consumer_id = :userId OR producer_id = :userId`, {
-            userId: getMessagesDTO.userId,
+            userId,
         })
-            .andWhere(`consumer.id = :interlocutor OR producer.id = :interlocutorId`, { interlocutor: getMessagesDTO.interlocutorId })
-            .andWhere(`timestamp >= :dateFrom AND timestamp <= :dateTo`, {
+            .andWhere(`consumer.id = :interlocutorId OR producer.id = :interlocutorId`, { interlocutorId: getMessagesDTO.interlocutorId })
+            .andWhere(`timestamp <= :dateFrom`, {
             dateFrom: getMessagesDTO.dateFrom,
-            dateTo: getMessagesDTO.dateTo,
         })
             .orderBy({ timestamp: 'DESC' })
             .limit(global_config_1.MESSAGES_ON_REQUEST)
             .execute();
         return result;
     }
-    async createMessage(createMessageDTO) {
+    async createMessage(createMessageDTO, userId) {
         const messageEntity = this.messageRepo.create({
             consumer_id: createMessageDTO.consumerId,
             data: createMessageDTO.data,
             timestamp: Date.now(),
-            producer_id: createMessageDTO.producerId,
+            producer_id: userId,
         });
         await this.messageRepo.save(messageEntity);
         return;

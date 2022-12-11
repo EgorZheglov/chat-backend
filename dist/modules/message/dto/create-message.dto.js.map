@@ -1,1 +1,1 @@
-{"version":3,"file":"create-message.dto.js","sourceRoot":"","sources":["../../../../src/modules/message/dto/create-message.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,gBAAgB;CAK5B;AALD,4CAKC"}
+{"version":3,"file":"create-message.dto.js","sourceRoot":"","sources":["../../../../src/modules/message/dto/create-message.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,gBAAgB;CAG5B;AAHD,4CAGC"}

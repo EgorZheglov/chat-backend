@@ -16,26 +16,30 @@ exports.MessageController = void 0;
 const common_1 = require("@nestjs/common");
 const errmessages_1 = require("../../utils/errmessages");
 const messages_1 = require("../../utils/messages");
+const auth_service_1 = require("../auth/auth.service");
 const create_message_dto_1 = require("./dto/create-message.dto");
 const get_messages_dto_1 = require("./dto/get-messages-dto");
 const message_service_1 = require("./message.service");
 let MessageController = class MessageController {
-    constructor(messageService) {
+    constructor(messageService, authService) {
         this.messageService = messageService;
+        this.authService = authService;
     }
-    async getMessages(getMessagesDTO) {
+    async getMessages(getMessagesDTO, req) {
         let result;
+        const { id } = this.authService.verifyAccessToken(req.headers.authorization.split(' ')[1]);
         try {
-            result = await this.messageService.getMessages(getMessagesDTO);
+            result = await this.messageService.getMessages(getMessagesDTO, id);
         }
         catch (e) {
             throw new common_1.HttpException(errmessages_1.INTERNAL_SERVER_ERROR, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
     }
-    async createMessage(createMessageDTO) {
+    async createMessage(createMessageDTO, req) {
+        const { id } = this.authService.verifyAccessToken(req.headers.authorization.split(' ')[1]);
         try {
-            await this.messageService.createMessage(createMessageDTO);
+            await this.messageService.createMessage(createMessageDTO, id);
         }
         catch (e) {
             throw new common_1.HttpException(errmessages_1.INTERNAL_SERVER_ERROR, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
@@ -47,21 +51,24 @@ __decorate([
     (0, common_1.Get)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [get_messages_dto_1.GetMessagesDTO]),
+    __metadata("design:paramtypes", [get_messages_dto_1.GetMessagesDTO, Object]),
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "getMessages", null);
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDTO]),
+    __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDTO, Object]),
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "createMessage", null);
 MessageController = __decorate([
-    (0, common_1.Controller)('message'),
-    __metadata("design:paramtypes", [message_service_1.MessageService])
+    (0, common_1.Controller)('messages'),
+    __metadata("design:paramtypes", [message_service_1.MessageService,
+        auth_service_1.AuthService])
 ], MessageController);
 exports.MessageController = MessageController;
 //# sourceMappingURL=message.controller.js.map

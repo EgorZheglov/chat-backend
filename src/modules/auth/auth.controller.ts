@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Public } from 'src/decorators/public-endpoint';
 import SignUpUserDTO from 'src/modules/auth/dto/user-create.dto';
 import { USER_CREATED } from '../../utils/messages';

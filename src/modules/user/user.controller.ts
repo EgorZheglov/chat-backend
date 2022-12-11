@@ -18,11 +18,10 @@ export class UserController {
   @Get()
   @HttpCode(HttpStatus.OK)
   async getUsers(@Query() getUsersDTO: GetUsersDTO): Promise<UserDTO[]> {
-    const { username } = getUsersDTO;
     let result: UserDTO[];
 
     try {
-      result = await this.userService.find(username);
+      result = await this.userService.find(getUsersDTO);
     } catch (e) {
       throw new HttpException(
         INTERNAL_SERVER_ERROR,

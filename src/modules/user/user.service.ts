@@ -6,6 +6,7 @@ import { ICreateUser } from './interfaces/create-user.interface';
 import User from '../../database/entities/users.entity';
 import { USERS_TAKE_LIMIT } from 'src/global-config';
 import { IUser } from './interfaces/user.interface';
+import { GetUsersDTO } from './dto/get-users-dto';
 
 @Injectable()
 export class UserService {
@@ -39,13 +40,15 @@ export class UserService {
     return user;
   }
 
-  async find(username: string): Promise<IUser[]> {
+  async find(getUsersDTO: GetUsersDTO): Promise<IUser[]> {
+    const { username } = getUsersDTO;
+
     const users = await this.userRepository.find({
       select: {
         username: true,
         id: true,
       },
-      where: { username: Like(username) },
+      where: username ? { username: Like(`%${username}%`) } : {},
       take: USERS_TAKE_LIMIT,
     });
 

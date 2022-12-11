@@ -22,10 +22,9 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async getUsers(getUsersDTO) {
-        const { username } = getUsersDTO;
         let result;
         try {
-            result = await this.userService.find(username);
+            result = await this.userService.find(getUsersDTO);
         }
         catch (e) {
             throw new common_1.HttpException(errmessages_1.INTERNAL_SERVER_ERROR, common_1.HttpStatus.INTERNAL_SERVER_ERROR);

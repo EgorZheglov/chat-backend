@@ -1,3 +1,3 @@
 export declare class GetUsersDTO {
-    username: string;
+    username?: string;
 }

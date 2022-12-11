@@ -11,9 +11,9 @@ export class GetMessagesDTO {
 
   @IsDateString()
   @IsNotEmpty()
-  readonly dateFrom: Date;
+  readonly dateFrom?: Date;
 
   @IsDateString()
   @IsNotEmpty()
-  readonly dateTo: Date;
+  readonly dateTo?: Date;
 }

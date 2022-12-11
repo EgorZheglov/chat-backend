@@ -43,13 +43,14 @@ let UserService = class UserService {
         const [user] = await this.userRepository.find({ where: { id } });
         return user;
     }
-    async find(username) {
+    async find(getUsersDTO) {
+        const { username } = getUsersDTO;
         const users = await this.userRepository.find({
             select: {
                 username: true,
                 id: true,
             },
-            where: { username: (0, typeorm_2.Like)(username) },
+            where: username ? { username: (0, typeorm_2.Like)(`%${username}%`) } : {},
             take: global_config_1.USERS_TAKE_LIMIT,
         });
         return users;

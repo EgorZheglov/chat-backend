@@ -14,11 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const errmessages_1 = require("../../utils/errmessages");
 const messages_1 = require("../../utils/messages");
 const auth_service_1 = require("../auth/auth.service");
 const create_message_dto_1 = require("./dto/create-message.dto");
 const get_messages_dto_1 = require("./dto/get-messages-dto");
+const message_created_dto_1 = require("./dto/message-created.dto");
+const message_dto_1 = require("./dto/message.dto");
 const message_service_1 = require("./message.service");
 let MessageController = class MessageController {
     constructor(messageService, authService) {
@@ -49,6 +52,14 @@ let MessageController = class MessageController {
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({
+        description: 'Gets messages of chat between 2 users',
+    }),
+    (0, swagger_1.ApiResponse)({
+        type: message_dto_1.MessageDTO,
+        status: common_1.HttpStatus.CREATED,
+        isArray: true,
+    }),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Req)()),
@@ -58,6 +69,12 @@ __decorate([
 ], MessageController.prototype, "getMessages", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ description: 'Creates message' }),
+    (0, swagger_1.ApiResponse)({
+        type: message_created_dto_1.MessageCreatedDTO,
+        status: common_1.HttpStatus.CREATED,
+        isArray: true,
+    }),
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
@@ -66,6 +83,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "createMessage", null);
 MessageController = __decorate([
+    (0, swagger_1.ApiTags)('messages'),
     (0, common_1.Controller)('messages'),
     __metadata("design:paramtypes", [message_service_1.MessageService,
         auth_service_1.AuthService])

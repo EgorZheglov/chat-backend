@@ -1,11 +1,7 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Post,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, HttpStatus } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiResponse } from '@nestjs/swagger/dist/decorators';
+import { ApiOperation } from '@nestjs/swagger/dist/decorators/api-operation.decorator';
 import { Public } from 'src/decorators/public-endpoint';
 import SignUpUserDTO from 'src/modules/auth/dto/user-create.dto';
 import { USER_CREATED } from '../../utils/messages';
@@ -14,15 +10,20 @@ import LoginUserDto from './dto/login-user.dto';
 import { RefreshTokenDTO } from './dto/refresh-token.dto';
 import { SignInResponseDTO } from './dto/sign-in-response.dto';
 import { UserCreatedDTO } from './dto/user-created.dto';
-import { ISignInResponse } from './interfaces/signin-response.interface';
 
+@ApiTags('auth')
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Public()
+  @ApiOperation({ description: 'creating new user' })
+  @ApiResponse({
+    type: UserCreatedDTO,
+    status: HttpStatus.CREATED,
+  })
   @Post('signup')
-  @HttpCode(201)
+  @HttpCode(HttpStatus.CREATED)
   async signupUser(
     @Body() signUpUserDTO: SignUpUserDTO,
   ): Promise<UserCreatedDTO> {
@@ -32,7 +33,13 @@ export class AuthController {
   }
 
   @Public()
+  @ApiOperation({ description: 'Getting new pair of tokens' })
+  @ApiResponse({
+    type: SignInResponseDTO,
+    status: HttpStatus.OK,
+  })
   @Post('signin')
+  @HttpCode(HttpStatus.OK)
   async loginUser(
     @Body() loginUserDto: LoginUserDto,
   ): Promise<SignInResponseDTO> {
@@ -42,7 +49,13 @@ export class AuthController {
   }
 
   @Public()
+  @ApiOperation({ description: 'Refreshing tokens new pair of tokens' })
+  @ApiResponse({
+    type: SignInResponseDTO,
+    status: HttpStatus.CREATED,
+  })
   @Post('refresh')
+  @HttpCode(HttpStatus.CREATED)
   async refreshToken(
     @Body() refreshTokenDTO: RefreshTokenDTO,
   ): Promise<SignInResponseDTO> {

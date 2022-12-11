@@ -14,8 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const errmessages_1 = require("../../utils/errmessages");
 const get_users_dto_1 = require("./dto/get-users-dto");
+const user_dto_1 = require("./dto/user.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
@@ -34,6 +36,12 @@ let UserController = class UserController {
 };
 __decorate([
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ description: 'Gets users' }),
+    (0, swagger_1.ApiResponse)({
+        type: user_dto_1.UserDTO,
+        status: common_1.HttpStatus.OK,
+        isArray: true,
+    }),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -41,6 +49,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 UserController = __decorate([
+    (0, swagger_1.ApiTags)('users'),
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);

@@ -9,6 +9,7 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { INTERNAL_SERVER_ERROR } from 'src/utils/errmessages';
 import { MESSAGE_CREATED } from 'src/utils/messages';
@@ -19,6 +20,7 @@ import { MessageCreatedDTO } from './dto/message-created.dto';
 import { MessageDTO } from './dto/message.dto';
 import { MessageService } from './message.service';
 
+@ApiTags('messages')
 @Controller('messages')
 export class MessageController {
   constructor(
@@ -27,6 +29,14 @@ export class MessageController {
   ) {}
 
   @Get()
+  @ApiOperation({
+    description: 'Gets messages of chat between 2 users',
+  })
+  @ApiResponse({
+    type: MessageDTO,
+    status: HttpStatus.CREATED,
+    isArray: true,
+  })
   @HttpCode(HttpStatus.OK)
   async getMessages(
     @Query() getMessagesDTO: GetMessagesDTO,
@@ -51,6 +61,12 @@ export class MessageController {
   }
 
   @Post()
+  @ApiOperation({ description: 'Creates message' })
+  @ApiResponse({
+    type: MessageCreatedDTO,
+    status: HttpStatus.CREATED,
+    isArray: true,
+  })
   @HttpCode(HttpStatus.CREATED)
   async createMessage(
     @Body() createMessageDTO: CreateMessageDTO,

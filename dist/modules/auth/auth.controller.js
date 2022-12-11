@@ -14,12 +14,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
+const decorators_1 = require("@nestjs/swagger/dist/decorators");
+const api_operation_decorator_1 = require("@nestjs/swagger/dist/decorators/api-operation.decorator");
 const public_endpoint_1 = require("../../decorators/public-endpoint");
 const user_create_dto_1 = require("./dto/user-create.dto");
 const messages_1 = require("../../utils/messages");
 const auth_service_1 = require("./auth.service");
 const login_user_dto_1 = require("./dto/login-user.dto");
 const refresh_token_dto_1 = require("./dto/refresh-token.dto");
+const sign_in_response_dto_1 = require("./dto/sign-in-response.dto");
+const user_created_dto_1 = require("./dto/user-created.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -39,8 +44,13 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, public_endpoint_1.Public)(),
+    (0, api_operation_decorator_1.ApiOperation)({ description: 'creating new user' }),
+    (0, decorators_1.ApiResponse)({
+        type: user_created_dto_1.UserCreatedDTO,
+        status: common_1.HttpStatus.CREATED,
+    }),
     (0, common_1.Post)('signup'),
-    (0, common_1.HttpCode)(201),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_create_dto_1.default]),
@@ -48,7 +58,13 @@ __decorate([
 ], AuthController.prototype, "signupUser", null);
 __decorate([
     (0, public_endpoint_1.Public)(),
+    (0, api_operation_decorator_1.ApiOperation)({ description: 'Getting new pair of tokens' }),
+    (0, decorators_1.ApiResponse)({
+        type: sign_in_response_dto_1.SignInResponseDTO,
+        status: common_1.HttpStatus.OK,
+    }),
     (0, common_1.Post)('signin'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_user_dto_1.default]),
@@ -56,13 +72,20 @@ __decorate([
 ], AuthController.prototype, "loginUser", null);
 __decorate([
     (0, public_endpoint_1.Public)(),
+    (0, api_operation_decorator_1.ApiOperation)({ description: 'Refreshing tokens new pair of tokens' }),
+    (0, decorators_1.ApiResponse)({
+        type: sign_in_response_dto_1.SignInResponseDTO,
+        status: common_1.HttpStatus.CREATED,
+    }),
     (0, common_1.Post)('refresh'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [refresh_token_dto_1.RefreshTokenDTO]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "refreshToken", null);
 AuthController = __decorate([
+    (0, swagger_1.ApiTags)('auth'),
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

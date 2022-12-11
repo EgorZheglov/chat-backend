@@ -50,7 +50,7 @@ let MessageService = class MessageService {
         const messageEntity = this.messageRepo.create({
             consumer_id: createMessageDTO.consumerId,
             data: createMessageDTO.data,
-            timestamp: Date.now(),
+            timestamp: new Date(),
             producer_id: userId,
         });
         await this.messageRepo.save(messageEntity);

@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpCode,
@@ -36,7 +37,7 @@ export class MessageController {
     const { id } = this.authService.verifyAccessToken(
       req.headers.authorization.split(' ')[1],
     );
-    
+
     try {
       result = await this.messageService.getMessages(getMessagesDTO, id);
     } catch (e) {
@@ -52,7 +53,7 @@ export class MessageController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async createMessage(
-    @Query() createMessageDTO: CreateMessageDTO,
+    @Body() createMessageDTO: CreateMessageDTO,
     @Req() req: Request,
   ): Promise<MessageCreatedDTO> {
     const { id } = this.authService.verifyAccessToken(

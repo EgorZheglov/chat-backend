@@ -53,7 +53,6 @@ export class MessageService {
     createMessageDTO: CreateMessageDTO,
     userId: string,
   ): Promise<void> {
-    
     const messageEntity = this.messageRepo.create({
       consumer_id: createMessageDTO.consumerId,
       data: createMessageDTO.data,

@@ -37,7 +37,7 @@ let MessageService = class MessageService {
             .where(`consumer_id = :userId OR producer_id = :userId`, {
             userId: getMessagesDTO.userId,
         })
-            .andWhere(`consumer.name = :interlocutor OR producer.name = :interlocutor`, { interlocutor: getMessagesDTO.interlocutor })
+            .andWhere(`consumer.id = :interlocutor OR producer.id = :interlocutorId`, { interlocutor: getMessagesDTO.interlocutorId })
             .andWhere(`timestamp >= :dateFrom AND timestamp <= :dateTo`, {
             dateFrom: getMessagesDTO.dateFrom,
             dateTo: getMessagesDTO.dateTo,

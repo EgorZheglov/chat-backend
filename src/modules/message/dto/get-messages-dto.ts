@@ -7,7 +7,7 @@ export class GetMessagesDTO {
 
   @IsString()
   @IsNotEmpty()
-  readonly interlocutor: string;
+  readonly interlocutorId: string;
 
   @IsDateString()
   @IsNotEmpty()

@@ -10,14 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const users_entity_1 = require("./users.entity");
 let Message = class Message extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('uuid'),
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.default, (user) => user.id),
+    (0, typeorm_1.JoinColumn)({ name: 'producer_id' }),
     __metadata("design:type", String)
 ], Message.prototype, "producer_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text', { unique: false, nullable: false }),
+    (0, typeorm_1.PrimaryColumn)('text', { unique: false, nullable: false }),
     __metadata("design:type", String)
 ], Message.prototype, "data", void 0);
 __decorate([
@@ -25,11 +27,12 @@ __decorate([
     __metadata("design:type", Date)
 ], Message.prototype, "timestamp", void 0);
 __decorate([
-    (0, typeorm_1.PrimaryColumn)('uuid'),
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.default, (user) => user.id),
+    (0, typeorm_1.JoinColumn)({ name: 'consumer_id' }),
     __metadata("design:type", String)
 ], Message.prototype, "consumer_id", void 0);
 Message = __decorate([
-    (0, typeorm_1.Entity)('user')
+    (0, typeorm_1.Entity)('messages')
 ], Message);
 exports.default = Message;
 //# sourceMappingURL=messages.entity.js.map

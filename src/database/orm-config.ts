@@ -1,5 +1,5 @@
 import User from 'src/database/entities/users.entity';
-import { ConnectionOptions } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 import {
   POSTGRES_DB,
   POSTGRES_HOST,
@@ -9,7 +9,7 @@ import {
 } from '../global-config';
 import Message from './entities/messages.entity';
 
-const ormConfig: ConnectionOptions = {
+const ormConfig: DataSourceOptions = {
   type: 'postgres',
   host: POSTGRES_HOST,
   port: POSTGRES_PORT,
@@ -19,6 +19,7 @@ const ormConfig: ConnectionOptions = {
   logging: true,
   synchronize: true,
   entities: [User, Message],
+
   //migrations: ['../db/migrations/*.ts'],
   //logger: 'simple-console',
 };

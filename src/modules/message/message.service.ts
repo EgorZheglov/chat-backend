@@ -33,8 +33,8 @@ export class MessageService {
         userId: getMessagesDTO.userId,
       })
       .andWhere(
-        `consumer.name = :interlocutor OR producer.name = :interlocutor`,
-        { interlocutor: getMessagesDTO.interlocutor },
+        `consumer.id = :interlocutor OR producer.id = :interlocutorId`,
+        { interlocutor: getMessagesDTO.interlocutorId },
       )
       .andWhere(`timestamp >= :dateFrom AND timestamp <= :dateTo`, {
         dateFrom: getMessagesDTO.dateFrom,
@@ -55,7 +55,7 @@ export class MessageService {
       producer_id: createMessageDTO.producerId,
     });
     await this.messageRepo.save(messageEntity);
-    //TODO: use webSocket connection
+    //TODO: use WebSocket connection
     return;
   }
 }

@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   //soon will be using with roles etc..
-  async verifyRefreshToken(token): Promise<ISignInResponse> {
+  async refreshTokens(token): Promise<ISignInResponse> {
     let tokenPayload: IRefreshTokenPayload;
     try {
       tokenPayload = jwt.verify(

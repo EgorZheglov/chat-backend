@@ -59,7 +59,7 @@ export class AuthController {
   async refreshToken(
     @Body() refreshTokenDTO: RefreshTokenDTO,
   ): Promise<SignInResponseDTO> {
-    const result = await this.authService.verifyRefreshToken(refreshTokenDTO);
+    const result = await this.authService.refreshTokens(refreshTokenDTO);
 
     return result;
   }

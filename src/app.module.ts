@@ -6,7 +6,6 @@ import { MessageModule } from './modules/message/message.module';
 import ormConfig from './database/orm-config';
 import { APP_GUARD } from '@nestjs/core';
 import AuthGuard from './guards/auth-guard';
-import { AuthService } from './modules/auth/auth.service';
 
 @Module({
   imports: [

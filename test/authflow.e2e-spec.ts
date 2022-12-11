@@ -1,11 +1,9 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import ormConfig from '../src/database/orm-config';
-import { USER_CREATED } from '../src/utils/messages';
 import * as request from 'supertest';
 import { DataSource } from 'typeorm';
 import { AppModule } from './../src/app.module';
-import { resolve } from 'node:path/posix';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;

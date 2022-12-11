@@ -4,7 +4,7 @@ import { Like, Repository } from 'typeorm';
 import { USER_ALREADY_EXISTS } from '../../utils/errmessages';
 import { ICreateUser } from './interfaces/create-user.interface';
 import User from '../../database/entities/users.entity';
-import { USERS_TAKE_LIMIT } from 'src/global-config';
+import { USERS_TAKE_LIMIT } from '../../global-config';
 import { IUser } from './interfaces/user.interface';
 import { GetUsersDTO } from './dto/get-users-dto';
 

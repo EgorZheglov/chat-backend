@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import Message from 'src/database/entities/messages.entity';
-import User from 'src/database/entities/users.entity';
-import { MESSAGES_ON_REQUEST } from 'src/global-config';
+import Message from '../../database/entities/messages.entity';
+import User from '../../database/entities/users.entity';
+import { MESSAGES_ON_REQUEST } from '../../global-config';
 import { Repository } from 'typeorm';
 import { CreateMessageDTO } from './dto/create-message.dto';
 import { GetMessagesDTO } from './dto/get-messages-dto';

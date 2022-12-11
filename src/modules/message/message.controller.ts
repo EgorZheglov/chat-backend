@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { INTERNAL_SERVER_ERROR } from 'src/utils/errmessages';
-import { MESSAGE_CREATED } from 'src/utils/messages';
+import { INTERNAL_SERVER_ERROR } from '../../utils/errmessages';
+import { MESSAGE_CREATED } from '../../utils/messages';
 import { AuthService } from '../auth/auth.service';
 import { CreateMessageDTO } from './dto/create-message.dto';
 import { GetMessagesDTO } from './dto/get-messages-dto';

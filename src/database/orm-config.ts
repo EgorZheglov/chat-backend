@@ -1,4 +1,4 @@
-import User from 'src/database/entities/users.entity';
+import User from '../database/entities/users.entity';
 import { DataSourceOptions } from 'typeorm';
 import {
   POSTGRES_DB,
@@ -20,7 +20,6 @@ const ormConfig: DataSourceOptions = {
   synchronize: false,
   entities: [User, Message],
   //migrations: ['../db/migrations/*.ts'],
-  //logger: 'simple-console',
 };
 
 export default ormConfig;

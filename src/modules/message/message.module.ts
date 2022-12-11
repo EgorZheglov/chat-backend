@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { MessageController } from './message.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Message from 'src/database/entities/messages.entity';
+import Message from '../../database/entities/messages.entity';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({

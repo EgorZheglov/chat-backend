@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MESSAGE_CREATED } from 'src/utils/messages';
+import { MESSAGE_CREATED } from '../../../utils/messages';
 
 export class MessageCreatedDTO {
   @ApiProperty({ example: MESSAGE_CREATED })

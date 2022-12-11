@@ -6,7 +6,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { SALT_OR_ROUNDS } from 'src/global-config';
+import { SALT_OR_ROUNDS } from '../../global-config';
 
 @Entity('users')
 export default class User extends BaseEntity {

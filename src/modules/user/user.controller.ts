@@ -7,7 +7,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { INTERNAL_SERVER_ERROR } from 'src/utils/errmessages';
+import { INTERNAL_SERVER_ERROR } from '../../utils/errmessages';
 import { GetUsersDTO } from './dto/get-users-dto';
 import { UserDTO } from './dto/user.dto';
 import { UserService } from './user.service';

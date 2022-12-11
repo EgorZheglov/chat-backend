@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { IS_PUBLIC_KEY } from 'src/decorators/public-endpoint';
-import { AuthService } from 'src/modules/auth/auth.service';
-import { IAccessTokenPayload } from 'src/modules/auth/interfaces/access-token-payload.interface';
-import { INCORRECT_TOKEN, SHOULD_CONTAINS_TOKEN } from 'src/utils/errmessages';
+import { IS_PUBLIC_KEY } from '../decorators/public-endpoint';
+import { AuthService } from '../modules/auth/auth.service';
+import { IAccessTokenPayload } from '../modules/auth/interfaces/access-token-payload.interface';
+import { INCORRECT_TOKEN, SHOULD_CONTAINS_TOKEN } from '../utils/errmessages';
 
 @Injectable()
 export default class AuthGuard implements CanActivate {

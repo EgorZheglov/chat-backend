@@ -1,8 +1,22 @@
-backend for web chat
-
 ## Description
 
+Simple backend app for chat:
+Users sending messages to each other.
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## What using:
+Nest.js,
+TypeScript,
+PostgreSQL,
+TypeOrm,
+Swagger,
+WebSockets,
+Unit & e2e testing examples (not much)
+
+##Further development:
+uploading/downloading files (streams),
+Friendlists,
+Group chats.
 
 ## Installation
 

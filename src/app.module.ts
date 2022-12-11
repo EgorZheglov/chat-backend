@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { MessageModule } from './modules/message/message.module';
 import ormConfig from './database/orm-config';
 import { APP_GUARD } from '@nestjs/core';
+import { GatewayModule } from './modules/gateway/gateway.module';
 import AuthGuard from './guards/auth-guard';
 
 @Module({
@@ -13,6 +14,7 @@ import AuthGuard from './guards/auth-guard';
     UserModule,
     AuthModule,
     MessageModule,
+    GatewayModule,
   ],
   providers: [
     {

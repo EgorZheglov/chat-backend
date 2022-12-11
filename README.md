@@ -13,7 +13,7 @@ Swagger,
 WebSockets,
 Unit & e2e testing examples (not much)
 
-##Further development:
+## Further development:
 uploading/downloading files (streams),
 Friendlists,
 Group chats.

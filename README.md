@@ -1,10 +1,11 @@
 ## Description
 
 Simple backend app for chat:
-Users sending messages to each other.
+Users sending messages to each other. One user can be connected from multiple devices.
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## What using:
+
 Nest.js,
 TypeScript,
 PostgreSQL,
@@ -14,6 +15,7 @@ WebSockets,
 Unit & e2e testing examples (not much)
 
 ## Further development:
+
 uploading/downloading files (streams),
 Friendlists,
 Group chats.
@@ -49,5 +51,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-

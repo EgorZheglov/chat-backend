@@ -43,7 +43,9 @@ export class MessageService {
         { interlocutorId: getMessagesDTO.interlocutorId },
       )
       .andWhere(`timestamp <= :dateFrom`, {
-        dateFrom: getMessagesDTO.dateFrom,
+        dateFrom: getMessagesDTO.dateFrom
+          ? getMessagesDTO.dateFrom
+          : new Date(),
       })
       .orderBy({ timestamp: 'DESC' })
       .limit(MESSAGES_ON_REQUEST)

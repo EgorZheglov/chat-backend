@@ -7,12 +7,15 @@ import { Repository } from 'typeorm';
 import { CreateMessageDTO } from './dto/create-message.dto';
 import { GetMessagesDTO } from './dto/get-messages-dto';
 import { IMessage } from './interfaces/message.interface';
+import { GatewayService } from '../gateway/gateway.service';
+import { IUser } from '../user/interfaces/user.interface';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
+    private readonly gatewayService: GatewayService,
   ) {}
 
   //getting messages of selected chat in time interval
@@ -49,18 +52,27 @@ export class MessageService {
     return result;
   }
 
+  //also can be made full on web socket
   async createMessage(
     createMessageDTO: CreateMessageDTO,
-    userId: string,
+    user: IUser,
   ): Promise<void> {
     const messageEntity = this.messageRepo.create({
       consumer_id: createMessageDTO.consumerId,
       data: createMessageDTO.data,
       timestamp: new Date(),
-      producer_id: userId,
+      producer_id: user.id,
     });
     await this.messageRepo.save(messageEntity);
-    //TODO: use WebSocket connection
+
+    //sending to consumers opened connections 
+    this.gatewayService.sendMessage({
+      consumerId: createMessageDTO.consumerId,
+      producerId: user.id,
+      message: createMessageDTO.data,
+      producerName: user.username,
+    });
+    
     return;
   }
 }

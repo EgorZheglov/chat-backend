@@ -72,12 +72,15 @@ export class MessageController {
     @Body() createMessageDTO: CreateMessageDTO,
     @Req() req: Request,
   ): Promise<MessageCreatedDTO> {
-    const { id } = this.authService.verifyAccessToken(
+    const { id, username } = this.authService.verifyAccessToken(
       req.headers.authorization.split(' ')[1],
     );
 
     try {
-      await this.messageService.createMessage(createMessageDTO, id);
+      await this.messageService.createMessage(createMessageDTO, {
+        id,
+        username,
+      });
     } catch (e) {
       throw new HttpException(
         INTERNAL_SERVER_ERROR,

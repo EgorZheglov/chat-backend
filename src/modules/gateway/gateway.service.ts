@@ -1,7 +1,7 @@
 import { OnModuleInit } from '@nestjs/common';
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { SHOULD_CONTAINS_TOKEN } from 'src/utils/errmessages';
+import { INCORRECT_TOKEN, SHOULD_CONTAINS_TOKEN } from 'src/utils/errmessages';
 import { AuthService } from '../auth/auth.service';
 import { IAccessTokenPayload } from '../auth/interfaces/access-token-payload.interface';
 import { IConnections } from './interfaces/connections.interface';
@@ -29,7 +29,7 @@ export class GatewayService implements OnModuleInit {
 
       const headerParts = authorizationHeader.split(' ');
       if (headerParts[0] !== 'Bearer') {
-        socket.send(SHOULD_CONTAINS_TOKEN);
+        socket.send(INCORRECT_TOKEN);
         return socket.disconnect();
       }
 
@@ -38,7 +38,7 @@ export class GatewayService implements OnModuleInit {
       try {
         tokenPayload = this.authService.verifyAccessToken(accessToken);
       } catch (e) {
-        socket.send(SHOULD_CONTAINS_TOKEN);
+        socket.send(INCORRECT_TOKEN);
         return socket.disconnect();
       }
 

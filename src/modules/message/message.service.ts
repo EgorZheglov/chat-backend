@@ -67,14 +67,14 @@ export class MessageService {
     });
     await this.messageRepo.save(messageEntity);
 
-    //sending to consumers opened connections 
+    //sending to consumers opened connections
     this.gatewayService.sendMessage({
       consumerId: createMessageDTO.consumerId,
       producerId: user.id,
       message: createMessageDTO.data,
       producerName: user.username,
     });
-    
+
     return;
   }
 }

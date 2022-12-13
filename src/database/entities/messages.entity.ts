@@ -15,12 +15,12 @@ export default class Message extends BaseEntity {
   @JoinColumn({ name: 'producer_id' })
   producer_id: string;
 
-  //this column does'nt need primary key actually, 
-  //But ORM throws exception if have not one at this entity
-  @PrimaryColumn('text', { unique: false, nullable: false }) 
+  @Column('text', { unique: false, nullable: false })
   data: string;
 
-  @Column('timestamptz', { unique: false, nullable: false })
+  //this column does'nt need primary key actually  
+  //But ORM won't let it be
+  @PrimaryColumn('timestamptz', { unique: false, nullable: false })
   timestamp: Date;
 
   @ManyToOne(() => User, (user) => user.id)

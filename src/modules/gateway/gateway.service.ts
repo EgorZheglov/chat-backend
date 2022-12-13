@@ -67,8 +67,11 @@ export class GatewayService implements OnModuleInit {
     const connections: Socket[] = this.connections[consumerId];
     const messageString = JSON.stringify(messageData);
 
+    if (!connections) return;
+
     //sending message on every device user connected
     connections.forEach((connection: Socket) => {
+      console.log(connection);
       connection.send(messageString);
     });
 

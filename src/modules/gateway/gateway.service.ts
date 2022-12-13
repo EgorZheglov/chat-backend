@@ -71,7 +71,6 @@ export class GatewayService implements OnModuleInit {
 
     //sending message on every device user connected
     connections.forEach((connection: Socket) => {
-      console.log(connection);
       connection.send(messageString);
     });
 
